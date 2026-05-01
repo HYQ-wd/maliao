@@ -1,0 +1,375 @@
+:root {
+  --bg-top: #8dd9ff;
+  --bg-mid: #f6c96d;
+  --bg-bottom: #3d2f28;
+  --panel: rgba(14, 19, 31, 0.86);
+  --panel-soft: rgba(26, 33, 50, 0.82);
+  --panel-line: rgba(255, 255, 255, 0.12);
+  --text: #fff6dc;
+  --muted: #d4e3ff;
+  --accent: #ffd85a;
+  --accent-2: #6dd6a6;
+  --shadow: rgba(10, 14, 24, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Bahnschrift, "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(255, 244, 198, 0.72), transparent 18%),
+    radial-gradient(circle at 88% 18%, rgba(255, 169, 87, 0.56), transparent 24%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.25;
+}
+
+.app-shell {
+  position: relative;
+  width: min(1280px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 24px 0 28px;
+}
+
+.top-strip {
+  display: grid;
+  grid-template-columns: 1.3fr 0.95fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.title-block,
+.room-panel,
+.stage-panel,
+.side-panel,
+.info-block {
+  border: 1px solid var(--panel-line);
+  background: var(--panel);
+  box-shadow: 0 24px 60px var(--shadow);
+}
+
+.title-block,
+.room-panel,
+.stage-panel,
+.side-panel {
+  border-radius: 8px;
+}
+
+.title-block {
+  padding: 20px 22px;
+}
+
+.eyebrow,
+.overlay-kicker,
+.block-title,
+.room-label {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4.8vw, 3.8rem);
+  line-height: 0.95;
+}
+
+.intro {
+  margin: 14px 0 0;
+  max-width: 720px;
+  color: #fff1d0;
+  font-size: 1rem;
+}
+
+.room-panel {
+  padding: 18px;
+}
+
+.room-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+}
+
+.room-actions input,
+.room-actions button,
+.overlay-actions button,
+.pad {
+  font: inherit;
+}
+
+.room-actions input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.room-actions input::placeholder {
+  color: rgba(255, 246, 220, 0.55);
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+}
+
+.room-actions button,
+.overlay-actions button {
+  padding: 12px 16px;
+  background: linear-gradient(180deg, #ffe38a, #f4b63f);
+  color: #2f1c13;
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.room-hint {
+  margin: 12px 0 0;
+  color: #fff0d0;
+  line-height: 1.45;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 16px;
+}
+
+.stage-panel {
+  padding: 14px;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.hud-item {
+  min-height: 74px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--panel-soft);
+}
+
+.hud-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.hud-item strong {
+  display: block;
+  font-size: 1.08rem;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.canvas-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #3d8cd9;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(7, 10, 18, 0.1), rgba(7, 10, 18, 0.76));
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-card {
+  width: min(520px, 100%);
+  padding: 22px;
+  border-radius: 8px;
+  background: rgba(12, 17, 28, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+
+.overlay-card h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 0.96;
+}
+
+.overlay-card p {
+  margin: 12px 0 0;
+  color: #f5ebd0;
+  line-height: 1.55;
+}
+
+.overlay-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  color: #ffe9c1;
+}
+
+.touch-controls {
+  display: none;
+  gap: 10px;
+}
+
+.pad {
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(180deg, #fff2cc, #f6b96f);
+  color: #2f1c13;
+  font-size: 1.45rem;
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pad.active {
+  transform: scale(0.96);
+  opacity: 0.82;
+}
+
+.side-panel {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  align-content: start;
+}
+
+.info-block {
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--panel-soft);
+}
+
+.info-block strong,
+.info-block p {
+  display: block;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.info-block strong {
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.info-block p {
+  color: #f4eacc;
+}
+
+@media (max-width: 1080px) {
+  .top-strip,
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    width: min(100% - 16px, 1280px);
+    padding-top: 16px;
+  }
+
+  .title-block,
+  .room-panel,
+  .stage-panel,
+  .side-panel,
+  .info-block {
+    border-radius: 8px;
+  }
+
+  .room-actions,
+  .hud,
+  .side-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .legend,
+  .touch-controls {
+    justify-content: center;
+  }
+
+  .overlay-card {
+    padding: 18px;
+  }
+}
+
+@media (pointer: coarse) {
+  .touch-controls {
+    display: flex;
+  }
+}

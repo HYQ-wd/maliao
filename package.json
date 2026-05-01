@@ -1,0 +1,9 @@
+{
+  "name": "mario-princess-online-adventure",
+  "version": "1.0.0",
+  "private": true,
+  "description": "一个马里奥与公主双人联机的三关浏览器闯关游戏。",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
